@@ -70,4 +70,6 @@ def run_web_socket_server():
     asyncio.get_event_loop().run_forever()
     return
 
-run_web_socket_server()
+
+if __name__ == "__main__":
+    run_web_socket_server()

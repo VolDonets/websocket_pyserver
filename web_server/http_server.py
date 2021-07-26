@@ -19,3 +19,6 @@ def run_http_server():
     httpd = HTTPServer(('localhost', 8080), Serv)
     httpd.serve_forever()
 
+
+if __name__ == "__main__":
+    run_http_server()
