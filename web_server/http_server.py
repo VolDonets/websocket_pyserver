@@ -16,7 +16,7 @@ class Serv(BaseHTTPRequestHandler):
 
 
 def run_http_server():
-    httpd = HTTPServer(('localhost', 8080), Serv)
+    httpd = HTTPServer(('', 8080), Serv)
     httpd.serve_forever()
 
 

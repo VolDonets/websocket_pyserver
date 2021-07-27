@@ -48,11 +48,14 @@
             <span class="users">?</span> online
         </div>
         <script>
+            var wsAddress = document.location.host;
+            wsAddress = wsAddress.substring(0, wsAddress.length - 4);
+            wsAddress = "ws://" + wsAddress + "6789";
             var minus = document.querySelector('.minus'),
                 plus = document.querySelector('.plus'),
                 value = document.querySelector('.value'),
                 users = document.querySelector('.users'),
-                websocket = new WebSocket("ws://127.0.0.1:6789/");
+                websocket = new WebSocket(wsAddress);
             minus.onclick = function (event) {
                 websocket.send(JSON.stringify({action: 'minus'}));
             }
