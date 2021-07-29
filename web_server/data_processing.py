@@ -1,6 +1,8 @@
 import math
 import serial
 import json
+import time
+
 
 class MySerial:
     def __init__(self, port, baudrate):
@@ -11,17 +13,19 @@ class MySerial:
             print("Serial port in " + str(port) + ", " + str(baudrate) + " is NOT opened")
 
     def write_msg(self, msg):
-        self.serialPort.write(msg)
+        msg += "\n"
+        self.serialPort.write(msg.encode("ASCII"))
 
     def read_msg(self):
-        msg = ""
-        while self.serialPort.inWaiting() > 0:
-            msg += self.serialPort.read(1)
+        msg = self.serialPort.readline().decode("ASCII")
         return msg
 
 
-def process_data(msg):
-    json_data = json.loads(msg)
+def process_data(message):
+    try:
+        json_data = json.loads(message)
+    except json.JSONDecodeError:
+        return ""
 
     t0 = json_data['t0']
     t1 = json_data['t1']
@@ -75,3 +79,9 @@ if __name__ == "__main__":
     msg = '{"t0":1.1, "t1":1.2, "t2":1.2, "t3":1.3, "A0":1, "A1":1, "A2":1, "A3":4}'
     print("in data:", msg)
     print("out data:", process_data(msg))
+
+    mySerial = MySerial('/dev/ttyUSB1', 115200)
+    while True:
+        mySerial.write_msg(msg)
+        print("msg:", msg, "is sent")
+        time.sleep(1)

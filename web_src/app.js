@@ -12,6 +12,9 @@ minus.onclick = function (event) {
 plus.onclick = function (event) {
     websocket.send(JSON.stringify({action: 'plus'}));
 }
+
+var count = 0;
+
 websocket.onmessage = function (event) {
     data = JSON.parse(event.data);
     switch (data.type) {
@@ -24,6 +27,8 @@ websocket.onmessage = function (event) {
                 (data.count == 1 ? "" : "s"));
             break;
         default:
+            users.textContent = "" + count + " -> " + event.data;
+            count++;
             console.error(
                 "unsupported event", data);
     }
