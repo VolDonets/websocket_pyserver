@@ -77,17 +77,29 @@ class MessageProcessing:
 
     def get_message(self):
         msg = self.mySerialPort.read_msg()
-        return process_data(msg)
+        # return process_data(msg)
+        return msg
 
 
 if __name__ == "__main__":
-    print("Do some tests: ")
-    msg = '{"t0":1.1, "t1":1.2, "t2":1.2, "t3":1.3, "A0":1, "A1":1, "A2":1, "A3":4}'
-    print("in data:", msg)
-    print("out data:", process_data(msg))
-
     mySerial = MySerial('/dev/ttyUSB1', 115200)
+    json_data = dict()
+    json_data['t0'] = 1
+    json_data['t1'] = 2
+    json_data['t2'] = 3
+    json_data['t3'] = 4
+
+    json_data['A0'] = 3
+    json_data['A1'] = 4
+    json_data['A2'] = 3
+    json_data['A3'] = 3
+
+    json_data['A'] = 3.333
+    json_data['phi'] = 0
+    json_data['tetta'] = 3.14
     while True:
-        mySerial.write_msg(msg)
-        print("msg:", msg, "is sent")
+        msg_to_sent = json.dumps(json_data)
+        mySerial.write_msg(msg_to_sent)
+        print("msg:", msg_to_sent, "is sent")
+        json_data['phi'] += 0.1
         time.sleep(1)
