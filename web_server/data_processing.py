@@ -77,8 +77,8 @@ class MessageProcessing:
 
     def get_message(self):
         msg = self.mySerialPort.read_msg()
-        # return process_data(msg)
-        return msg
+        return process_data(msg)
+        # return msg
 
 
 if __name__ == "__main__":
