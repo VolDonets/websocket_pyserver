@@ -15,6 +15,7 @@ class Serv(BaseHTTPRequestHandler):
             self.path = '../web_src/style.css'
         elif self.path == '/arrow.png':
             self.path = '../web_src/arrow.png'
+            is_image = True
         elif self.path == '/arrow-left.svg':
             self.path = '../web_src/arrow-left.svg'
         elif self.path == '/helicopter.png':
