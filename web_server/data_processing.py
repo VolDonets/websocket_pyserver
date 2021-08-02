@@ -38,7 +38,13 @@ def process_data(message):
     a3 = json_data['A3']
 
     a = (a0 + a1 + a2 + a3) / 4
-    phi = math.atan2(-t3 + t1 + t2 - t0, -t3 - t1 + t2 + t0)
+    # phi = math.atan2(-t3 + t1 + t2 - t0, -t3 - t1 + t2 + t0)
+    y_coord = -t3 + t1 + t2 - t0
+    x_coord = -t3 - t1 + t2 + t0
+    if x_coord == 0 and y_coord == 0:
+        phi = 0
+    else:
+        phi = math.atan2(y_coord, x_coord) + math.pi
     C = math.cos(phi)
     S = math.sin(phi)
 
