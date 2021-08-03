@@ -43,6 +43,8 @@ def process_messaging():
         if len(USERS) > 0:
             try:
                 msg = get_msg()
+                if "NONE" in msg:
+                    continue
                 asyncio.run(asyncio.wait([user.send(msg) for user in USERS]))
             except websockets.WebSocketException:
                 print("Unavailable websocket")

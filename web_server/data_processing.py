@@ -22,20 +22,34 @@ class MySerial:
 
 
 def process_data(message):
+    if "Relax" in message:
+        return "NONE"
     try:
-        json_data = json.loads(message)
+        json_orig_data = json.loads(message)
     except json.JSONDecodeError:
-        return ""
+        return "NONE"
 
-    t0 = json_data['t0']
-    t1 = json_data['t1']
-    t2 = json_data['t2']
-    t3 = json_data['t3']
+    t0 = json_orig_data['Ch_0']
+    t1 = json_orig_data['Ch_1']
+    t2 = json_orig_data['Ch_2']
+    t3 = json_orig_data['Ch_3']
 
-    a0 = json_data['A0']
-    a1 = json_data['A1']
-    a2 = json_data['A2']
-    a3 = json_data['A3']
+    a0 = json_orig_data['Max_0']
+    a1 = json_orig_data['Max_1']
+    a2 = json_orig_data['Max_2']
+    a3 = json_orig_data['Max_3']
+
+    json_data = dict()
+
+    json_data['t0'] = t0
+    json_data['t1'] = t1
+    json_data['t2'] = t2
+    json_data['t3'] = t3
+
+    json_data['A0'] = a0
+    json_data['A1'] = a1
+    json_data['A2'] = a2
+    json_data['A3'] = a3
 
     a = (a0 + a1 + a2 + a3) / 4
     # phi = math.atan2(-t3 + t1 + t2 - t0, -t3 - t1 + t2 + t0)
@@ -73,7 +87,8 @@ def process_data(message):
 
 class MessageProcessing:
     def __init__(self):
-        self.mySerialPort = MySerial('/dev/ttyUSB0', 115200)
+        # self.mySerialPort = MySerial('/dev/ttyUSB0', 115200)
+        self.mySerialPort = MySerial('COM3', 115200)
 
     def get_message(self):
         msg = self.mySerialPort.read_msg()
