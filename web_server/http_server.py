@@ -21,6 +21,9 @@ class Serv(BaseHTTPRequestHandler):
         elif self.path == '/helicopter.png':
             self.path = '../web_src/helicopter.png'
             is_image = True
+        elif self.path == '/alarm.mp3':
+            self.path = '../web_src/alarm.mp3'
+            is_image = True
 
         try:
             if is_image:
